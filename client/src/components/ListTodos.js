@@ -18,11 +18,23 @@ function ListTodos() {
     getTodos();
   }, []);
 
-  console.log(todos);
+  const handleDelete = async (id) => {
+    try {
+      const deleteTodo = await fetch(`http://localhost:5000/todos/${id}`, {
+        method: "DELETE",
+      });
+
+      setTodos(todos.filter((todo) => todo.todo_id !== id));
+
+      console.log(deleteTodo);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   return (
     <>
-      <table class="table mt-5 text-center">
+      <table className="table mt-5 text-center">
         <thead>
           <tr>
             <th>Description</th>
@@ -32,10 +44,19 @@ function ListTodos() {
         </thead>
         <tbody>
           {todos.map((todo) => (
-            <tr>
+            <tr key={todo.todo_id}>
               <td>{todo.description}</td>
-              <td>Edit</td>
-              <td>Delete</td>
+              <td>
+                <button className="btn btn-primary">Edit</button>
+              </td>
+              <td>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handleDelete(todo.todo_id)}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
