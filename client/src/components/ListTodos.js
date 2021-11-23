@@ -1,27 +1,24 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 function ListTodos() {
-    const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState([]);
 
-    const getTodos = async () =>{
-        try {
+  const getTodos = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/todos");
+      const data = await res.json();
 
-            const res = await fetch('http://localhost:5000/todos')
-            const data = await res.json();
-            
-            setTodos(data)
-
-        } catch (err) {
-            console.error(err.message)
-        }
+      setTodos(data);
+    } catch (err) {
+      console.error(err.message);
     }
+  };
 
-useEffect(() => {
+  useEffect(() => {
     getTodos();
-},[])
+  }, []);
 
-
-console.log(todos)
+  console.log(todos);
 
   return (
     <>
@@ -34,17 +31,12 @@ console.log(todos)
           </tr>
         </thead>
         <tbody>
-          {/* <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-          </tr> */}
-          {todos.map((todo)=>(
-              <tr>
-                  <td>{todo.description}</td>
-                  <td>Edit</td>
-                  <td>Delete</td>
-              </tr>
+          {todos.map((todo) => (
+            <tr>
+              <td>{todo.description}</td>
+              <td>Edit</td>
+              <td>Delete</td>
+            </tr>
           ))}
         </tbody>
       </table>
