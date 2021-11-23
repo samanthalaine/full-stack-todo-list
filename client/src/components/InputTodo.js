@@ -4,19 +4,19 @@ function InputTodo() {
   const [description, setDescription] = useState("");
 
   const handleSubmit = async (e) => {
-      e.preventDefault();
+    e.preventDefault();
     try {
-        const body = {description};
-        const res = await fetch('http://localhost:5000/todos',{
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(body)
-        })
-        console.log(res)
+      const body = { description };
+      const res = await fetch("http://localhost:5000/todos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      window.location = "/";
     } catch (err) {
-        console.error(err.message);
+      console.error(err.message);
     }
-  }
+  };
 
   return (
     <>
