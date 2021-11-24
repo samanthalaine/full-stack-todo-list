@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function InputTodo() {
   const [description, setDescription] = useState("");
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -12,7 +12,9 @@ function InputTodo() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
+      
       window.location = "/";
+
     } catch (err) {
       console.error(err.message);
     }
